@@ -5,10 +5,9 @@ const questions = () => {
     question.addEventListener("click", evt => {
         evt.preventDefault();
 
-
         let target = evt.target;
 
-        if (target.matches("a")) {
+        if (target.closest(".panel-heading")) {
 
             panelCollapse.forEach(elm => {
                 if (elm.closest(".questions") && elm.classList.contains("in")) {

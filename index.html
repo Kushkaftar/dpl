@@ -188,25 +188,27 @@
                                         <option>3 штуки</option>
                                     </select>
                                 </div>
+                                <div id="drainage">
 
-                                <div class="title-text">второй колодец (дренажный)</div>
-                                <div class="select-box">
-                                    <p><strong>Диаметр</strong></p>
-                                    <select class="form-control expand">
-                                        <option>1.4 метра</option>
-                                        <option>2 метра</option>
-                                    </select>
-                                </div>
-                                <div class="select-box">
-                                    <p><strong>Количество колец</strong></p>
-                                    <select class="form-control expand">
-                                        <option>1 штука</option>
-                                        <option>2 штуки</option>
-                                        <option>3 штуки</option>
-                                    </select>
+                                    <div class="title-text">второй колодец (дренажный)</div>
+                                    <div class="select-box">
+                                        <p><strong>Диаметр</strong></p>
+                                        <select class="form-control expand">
+                                            <option>1.4 метра</option>
+                                            <option>2 метра</option>
+                                        </select>
+                                    </div>
+                                    <div class="select-box">
+                                        <p><strong>Количество колец</strong></p>
+                                        <select class="form-control expand">
+                                            <option>1 штука</option>
+                                            <option>2 штуки</option>
+                                            <option>3 штуки</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <a class="button construct-btn" data-toggle="collapse" data-parent="#accordion"
-                                   href="#collapseThree"><span>Следующий шаг</span></a>
+                                       href="#collapseThree"><span>Следующий шаг</span></a>
                             </div>
                         </div>
                     </div>
@@ -253,7 +255,7 @@
                              aria-labelledby="headingFour">
                             <div class="panel-body">
                                 <p>Введите расстояние до дома</p>
-                                <input type="text">
+                                <input type="text" id="distance">
                                 <button class="button construct-btn call-btn">Получить расчет и скидку</button>
                             </div>
                         </div>
@@ -440,7 +442,7 @@
                 <p class="question">Остались вопросы?</p>
                 <p>Введите свой вопрос и в течении 15 минут я свяжусь с вами!</p>
                 <form class="director-form">
-                    <input type="text" name="user_quest" placeholder="Введите свой вопрос" required>
+                    <input id="director-form" type="text" name="user_quest" placeholder="Введите свой вопрос" required>
                     <button class="button director-btn consultation-btn" name="submit" type="submit">Получить
                         консультацию
                     </button>
@@ -485,7 +487,7 @@
         <div class="popup-content">
             <!-- <div class="popup-form"> -->
             <form class="capture-form text-center">
-                <span class="circle"><button class="popup-close">&times;</button></span>
+                <span class="circle"><a class="popup-close">&times;</a></span>
                 <label for="name_1">Как к вам обращаться</label>
                 <input type="text" id="name_1" name="user_name" placeholder="Ваше имя" required>
                 <label for="phone_1">Ваш телефон для получения скидки</label>
@@ -506,7 +508,7 @@
         <div class="popup-content">
             <!-- <div class="popup-form"> -->
             <form class="capture-form text-center">
-                <span class="circle"><button class="popup-close">&times;</button></span>
+                <span class="circle"><a class="popup-close">&times;</a></span>
                 <label for="name_11">Как к вам обращаться</label>
                 <input type="text" id="name_11" name="user_name" placeholder="Ваше имя" required>
                 <label for="phone_11">Ваш телефон для получения скидки</label>
@@ -527,7 +529,7 @@
         <div class="popup-content">
             <!-- <div class="popup-form"> -->
             <form class="capture-form text-center">
-                <span class="circle"><button class="popup-close">&times;</button></span>
+                <span class="circle"><a class="popup-close">&times;</a></span>
                 <label for="name_12">Как к вам обращаться</label>
                 <input type="text" id="name_12" name="user_name" placeholder="Ваше имя" required>
                 <label for="phone_12">Ваш телефон для получения скидки</label>
@@ -548,7 +550,7 @@
         <div class="popup-content">
             <!-- <div class="popup-form"> -->
             <form class="capture-form text-center">
-                <span class="circle"><button class="popup-close">&times;</button></span>
+                <span class="circle"><a class="popup-close">&times;</a></span>
                 <label for="name_13">Как к вам обращаться</label>
                 <input type="text" id="name_13" name="user_name" placeholder="Ваше имя" required>
                 <label for="phone_13">Ваш телефон для получения скидки</label>
