@@ -1,4 +1,4 @@
-import popupConsultation from "./popupConsultation";
+import popupDiscount from "./popupDiscount";
 import closePopup from "./closePopup";
 
 const constructor = () => {
@@ -175,7 +175,7 @@ const constructor = () => {
         if (target.closest("button")) {
             popupDiscounts.style.display = "block";
             closePopup(popupDiscounts);
-            popupConsultation(obj);
+            popupDiscount(obj);
         }
 
 
