@@ -16,7 +16,7 @@ const popupConsultation = () => {
         popupConsultation.style.display = "block";
         if (input.value !== "") body.user_quest = input.value;
 
-        closePopup(popupConsultation, body);
+        closePopup(popupConsultation);
         btn.removeEventListener("click", () => clp());
     };
 

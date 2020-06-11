@@ -3,11 +3,10 @@ import send from "./send";
 const formData = (e, body = {}) => {
 
     e.preventDefault();
-    console.log(e);
+    console.log(body);
     let target = e.target;
 
     let formClear = target.querySelectorAll("input");
-    console.log(formClear);
 
 
     const formData = new FormData(target);

@@ -1,6 +1,4 @@
-import formData from "./formData";
-
-const closePopup = (elem, body = {}) => {
+const closePopup = (elem) => {
 
     const delEvent = () => {
         elem.removeEventListener("click", blockIf);
@@ -8,12 +6,6 @@ const closePopup = (elem, body = {}) => {
     };
     const blockIf = (evt) => {
         let target = evt.target;
-
-        // if (target.closest(".button")) {
-        //     // console.log(target.closest("form"));
-        //     formData(body, target.closest("form"));
-        //
-        // }
 
         if (target.classList.contains("popup-close")) delEvent();
         if (!target.closest(".popup-content")) delEvent();

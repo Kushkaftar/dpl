@@ -1,11 +1,12 @@
+import popupDiscount from "./popupDiscount";
 import closePopup from "./closePopup";
 
 const constructor = () => {
     const constructor = document.querySelector(".constructor"),
         panelCollapse = document.querySelectorAll(".panel-collapse"),
         calcResult = document.getElementById("calc-result"),
-        input = constructor.querySelector("#distance"),
-        a = document.querySelectorAll("a.button");
+        popupDiscounts = document.querySelector(".popup-discount"),
+        input = constructor.querySelector("#distance");
 
 
 
@@ -20,25 +21,51 @@ const constructor = () => {
 
     constructor.addEventListener("click", evt => {
 
-
-        let target = evt.target;
-
-        // calk price ...
-        const calcPrice = () => {
-            if (obj.cameraNumb === 1) {
-                
-                calcResult.value = obj.startPrice;
-            } else {
-                calcResult.value = obj.startPrice;
-            }
-        };
-
+        // block4 input
         input.addEventListener("input", evt => {
 
             evt.target.value = evt.target.value.replace(/[^+0-9]/gi, "");
             obj.distance = evt.target.value !== "" ? evt.target.value : "default";
             calcPrice();
         });
+
+        let target = evt.target;
+
+        const ringPercent = (number) => {
+            switch (number) {
+                case 1:
+                    return 0;
+                case 2:
+                    return 30;
+                case 3:
+                    return 50;
+            }
+        };
+
+        // calk price ...
+        const calcPrice = () => {
+            if (obj.cameraNumb === 1) {
+                let ringPercents = obj.firstRing ? ringPercent(obj.firstRing) : 0;
+                let firstDiameter = obj.firstDiameter === 2 ? 30 : 0;
+                let bottom = obj.bottom ? 1000 : 0;
+                let percent = firstDiameter + ringPercents;
+                obj.price = percent !== 0 ? obj.startPrice + obj.startPrice * percent / 100: obj.startPrice
+                obj.price += bottom;
+                calcResult.value = obj.price;
+            } else {
+                let drainageRingPercent = ringPercent(obj.drainageRing);
+                let ringPercents = ringPercent(obj.firstRing);
+                let drainageDiameter = obj.drainageDiameter === 2 ? 30 : 0;
+                let firstDiameter = obj.firstDiameter === 2 ? 30 : 0;
+                let bottom = obj.bottom ? 2000 : 0;
+                let percent = drainageDiameter + firstDiameter + ringPercents + drainageRingPercent;
+                obj.price = percent !== 0 ? obj.startPrice + obj.startPrice * percent / 100: obj.startPrice
+                obj.price += bottom;
+                calcResult.value = obj.price;
+            }
+        };
+
+
         //схлопывает аккордеон
         const blockCollapse = () => {
             evt.preventDefault();
@@ -49,12 +76,23 @@ const constructor = () => {
             });
         };
 
+        //схлопыват блок ввода взависимости от количества тип септика
+        const closeBlock2 = () => {
+            if (obj.cameraNumb === 1) {
+                document.getElementById("drainage").classList.add("hidden");
+            } else {
+                document.getElementById("drainage").classList.remove("hidden");
+            }
+        }
+
         // блок открытия/закрытия аккордеона
         if (target.closest(".panel-heading")) {
 
             blockCollapse();
             let elm = target.closest(".panel-heading").nextElementSibling;
             elm.classList.toggle("in");
+            closeBlock2();
+            calcPrice();
         }
 
         // calc block2 ...
@@ -62,23 +100,18 @@ const constructor = () => {
             switch (select) {
                 case "1.4 метра":
                     obj[`${number}Diameter`] = 1.4;
-                    console.log(obj);
                     break;
                 case "2 метра":
                     obj[`${number}Diameter`] = 2;
-                    console.log(obj);
                     break;
                 case "1 штука":
                     obj[`${number}Ring`] = 1;
-                    console.log(obj);
                     break;
                 case "2 штуки":
                     obj[`${number}Ring`] = 2;
-                    console.log(obj);
                     break;
                 case "3 штуки":
                     obj[`${number}Ring`] = 3;
-                    console.log(obj);
                     break;
 
             }
@@ -88,20 +121,27 @@ const constructor = () => {
         // block1
         if (target.id === "myonoffswitch") {
             counterConstructor++;
-            obj.cameraNumb = counterConstructor % 2 === 0 ? 1 : 2;
-            obj.startPrice = counterConstructor % 2 === 0 ? 10000 : 15000;
-            console.log(obj);
+            if (counterConstructor % 2 === 0){
+                obj.cameraNumb = 1;
+                obj.startPrice = 10000;
+                obj.drainageDiameter ? delete obj.drainageDiameter : obj;
+                obj.drainageRing ? delete obj.drainageRing : obj;
+            } else {
+                obj.cameraNumb = 2;
+                obj.startPrice = 15000;
+                obj.drainageDiameter = 1.4;
+                obj.drainageRing = 1;
+            }
             calcPrice();
         }
 
         if (target.id === "myonoffswitch-two") {
             counterConstructor2++;
             obj.bottom = counterConstructor2 % 2 === 0;
-            console.log(obj, counterConstructor2);
             calcPrice();
         }
 
-        // открываем второй блок
+        // opn block
         if (target.closest(".button") && target.closest("a")) {
             blockCollapse();
             let elm = target.closest(".panel").nextElementSibling.lastElementChild;
@@ -109,16 +149,11 @@ const constructor = () => {
             elm.classList.toggle("in");
 
             if (obj.cameraNumb === 1 || typeof (obj.cameraNumb) === "undefined") {
-                obj.cameraNumb = 1;
-                obj.startPrice = 10000;
-                calcBlock2("first", "1.4 метра");
-                calcBlock2("first", "1 штука");
-
-                console.log(obj);
-                calcPrice();
                 document.getElementById("drainage").classList.add("hidden");
+                calcPrice();
             } else {
                 document.getElementById("drainage").classList.remove("hidden");
+                calcPrice();
             }
         }
 
@@ -135,8 +170,13 @@ const constructor = () => {
         }
 
         if (target.closest("button")) {
-            document.querySelector(".popup-discount").style.display = "block";
-            closePopup(document.querySelector(".popup-discount"));
+            popupDiscounts.style.display = "block";
+            closePopup(popupDiscounts);
+            popupDiscount(obj);
+        }
+        if (target.closest("#headingThree")) {
+            obj.bottom = true;
+            calcPrice();
         }
 
     });
