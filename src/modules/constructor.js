@@ -1,4 +1,4 @@
-import popupDiscount from "./popupDiscount";
+import popupConsultation from "./popupConsultation";
 import closePopup from "./closePopup";
 
 const constructor = () => {
@@ -157,7 +157,10 @@ const constructor = () => {
             }
         }
 
-
+        if (target.closest("#headingThree")) {
+            obj.bottom = true;
+            calcPrice();
+        }
 
         // block2 ...
         if (target.closest("select")) {
@@ -172,12 +175,9 @@ const constructor = () => {
         if (target.closest("button")) {
             popupDiscounts.style.display = "block";
             closePopup(popupDiscounts);
-            popupDiscount(obj);
+            popupConsultation(obj);
         }
-        if (target.closest("#headingThree")) {
-            obj.bottom = true;
-            calcPrice();
-        }
+
 
     });
 };
